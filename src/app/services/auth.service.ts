@@ -6,6 +6,7 @@ import { User } from '../model/user.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private baseUrl = 'http://localhost:3000/users';
+
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<User | null> {

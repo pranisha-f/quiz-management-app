@@ -1,0 +1,23 @@
+<div class="widget-container">
+  <mat-card>
+    <mat-card-title>Quiz Stats</mat-card-title>
+
+    <div class="stats">
+      <div><strong>Total Quizzes:</strong> {{ totalQuizzes }}</div>
+      <div><strong>Completed Quizzes:</strong> {{ completedQuizzes }}</div>
+      <div><strong>In-Progress Quizzes:</strong> {{ inProgressQuizzes }}</div>
+      <div><strong>Failed Quizzes:</strong> {{ failedQuizzes }}</div>
+      <div><strong>Total Students:</strong> {{ totalStudents }}</div>
+    </div>
+
+    <div *ngIf="showChart">
+      <!-- <canvas baseChart
+              [datasets]="pieChartData"
+              [labels]="pieChartLabels"
+              [options]="pieChartOptions"
+              [type]="'pie'"
+              
+              ></canvas> -->
+    </div>
+  </mat-card>
+</div>
