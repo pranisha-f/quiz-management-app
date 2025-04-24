@@ -48,15 +48,19 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    const { email, password } = this.loginForm.value;
-    this.authService.login(email, password).subscribe((user) => {
-      if (user) {
-        this.userService.setUserId(String(user.id));
-        this.userService.setUserName(user.name);
-        this.router.navigate([user.role === 'admin' ? '/admin' : '/student']);
-      } else {
-        alert('Invalid credentials');
-      }
-    });
+    if (this.loginForm.valid) {
+      const { email, password } = this.loginForm.value;
+      this.authService.login(email, password).subscribe((user) => {
+        if (user) {
+          this.userService.setUserId(String(user.id));
+          this.userService.setUserName(user.name);
+          this.router.navigate([user.role === 'admin' ? '/admin' : '/student']);
+        } else {
+          alert('Invalid credentials');
+        }
+      });
+    } else {
+      this.loginForm.markAllAsTouched();
+    }
   }
 }

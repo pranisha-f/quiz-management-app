@@ -1,0 +1,28 @@
+<div class="dashboard-container">
+  <h2>Student Dashboard</h2>
+
+  <div class="tabs">
+    <button
+      (click)="activeTab.set('active')"
+      [class.active]="activeTab() === 'active'"
+    >
+      Active
+    </button>
+    <button
+      (click)="activeTab.set('completed')"
+      [class.active]="activeTab() === 'completed'"
+    >
+      Completed
+    </button>
+  </div>
+
+  <div *ngIf="activeTab() === 'active'" class="quiz-list">
+    <ng-container *ngFor="let quiz of quizzes()">
+      <div class="quiz-card">
+        <h3>{{ quiz.title }}</h3>
+        <p>Time Limit: {{ quiz.timeLimit }} mins</p>
+        <button (click)="startQuiz(quiz.id)">Start Quiz</button>
+      </div>
+    </ng-container>
+  </div>
+</div>
