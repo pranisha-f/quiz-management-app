@@ -43,6 +43,26 @@
         }
       ],
       "status": "In Progress"
+    },
+    {
+      "id": "6d4b",
+      "title": "Python",
+      "timer": 5,
+      "questions": [
+        {
+          "text": "Is it Interpreter language",
+          "answer": "Yes"
+        },
+        {
+          "text": "Everything needs to be complied before run?",
+          "answer": "No"
+        },
+        {
+          "text": "Is it library friendly?",
+          "answer": "Partial"
+        }
+      ],
+      "status": "In Progress"
     }
   ],
   "results": [
@@ -61,6 +81,26 @@
         {
           "response": "No"
         },
+        {
+          "response": "Yes"
+        },
+        {
+          "response": "No"
+        },
+        {
+          "response": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "8c32",
+      "quizId": "6d4b",
+      "quizTitle": "Python",
+      "studentName": "neha",
+      "score": 2,
+      "status": "Failed",
+      "timestamp": "2025-04-25T05:56:18.345Z",
+      "responses": [
         {
           "response": "Yes"
         },

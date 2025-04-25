@@ -1,7 +1,7 @@
-import { Component, OnInit, inject, Inject } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import {
   MatDialog,
   MatDialogModule,
@@ -9,16 +9,41 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-quiz-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatDialogModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatSortModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+  ],
   template: `
     <h2>All Quizzes</h2>
-    <table mat-table [dataSource]="quizzes" class="mat-elevation-z8">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Filter quizzes</mat-label>
+      <input
+        matInput
+        [(ngModel)]="filterText"
+        (ngModelChange)="applyFilter()"
+        placeholder="Search by title"
+      />
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
       <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>Quiz Title</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Quiz Title</th>
         <td mat-cell *matCellDef="let quiz">{{ quiz.title }}</td>
       </ng-container>
 
@@ -41,16 +66,24 @@ import { MatButtonModule } from '@angular/material/button';
   `,
 })
 export class QuizTableComponent implements OnInit {
-  quizzes: any[] = [];
   displayedColumns: string[] = ['title', 'actions'];
+  dataSource = new MatTableDataSource<any>();
+  filterText = '';
 
   private http = inject(HttpClient);
   private dialog = inject(MatDialog);
 
+  @ViewChild(MatSort) sort!: MatSort;
+
   ngOnInit(): void {
     this.http.get<any[]>('http://localhost:3000/quizzes').subscribe((data) => {
-      this.quizzes = data;
+      this.dataSource.data = data;
+      this.dataSource.sort = this.sort;
     });
+  }
+
+  applyFilter() {
+    this.dataSource.filter = this.filterText.trim().toLowerCase();
   }
 
   openResultsDialog(quiz: any) {
@@ -66,11 +99,24 @@ export class QuizTableComponent implements OnInit {
 @Component({
   selector: 'app-quiz-results-dialog',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatDialogModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+  ],
   template: `
     <h2 mat-dialog-title>Results for "{{ data.quizTitle }}"</h2>
+
     <mat-dialog-content>
-      <div *ngIf="loading">Loading results...</div>
+      <mat-progress-spinner
+        *ngIf="loading"
+        mode="indeterminate"
+        diameter="40"
+        color="primary"
+      >
+      </mat-progress-spinner>
 
       <table
         mat-table
@@ -97,6 +143,15 @@ export class QuizTableComponent implements OnInit {
       <button mat-button (click)="dialogRef.close()">Close</button>
     </mat-dialog-actions>
   `,
+  styles: [
+    `
+      .spinner {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+    `,
+  ],
 })
 export class QuizResultsDialogComponent implements OnInit {
   results: any[] = [];
