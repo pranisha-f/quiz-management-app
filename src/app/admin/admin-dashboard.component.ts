@@ -37,7 +37,7 @@ import { AdminDashboardWidgetComponent } from './admin-dashboard-widget.componen
             (click)="setActiveTab('home')"
             [class.active]="activeTab === 'home'"
           >
-            <mat-icon>home</mat-icon> Home
+            <mat-icon>home</mat-icon>
           </a>
           <!-- Students Link -->
           <a
@@ -45,11 +45,11 @@ import { AdminDashboardWidgetComponent } from './admin-dashboard-widget.componen
             (click)="setActiveTab('students')"
             [class.active]="activeTab === 'students'"
           >
-            <mat-icon>people</mat-icon> Students
+            <mat-icon>people</mat-icon>
           </a>
           <!-- Logout Link -->
           <a mat-list-item (click)="logout()">
-            <mat-icon>exit_to_app</mat-icon> Logout
+            <mat-icon>exit_to_app</mat-icon>
           </a>
         </mat-nav-list>
       </mat-sidenav>

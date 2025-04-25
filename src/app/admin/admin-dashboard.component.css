@@ -1,0 +1,90 @@
+/* Make the container full height */
+.sidenav-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  background-color: #f4f4f4;
+}
+
+/* Style for the sidebar */
+.sidebar {
+  width: 70px;
+  background-color: #afd9ae;
+  color: white;
+  padding-top: 20px;
+}
+
+.mat-nav-list {
+  padding: 0;
+  margin: 0;
+}
+
+.mat-list-item {
+  color: white;
+  padding: 15px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.mat-list-item:hover {
+  background-color: #362c2c;
+}
+
+.mat-list-item mat-icon {
+  margin-right: 10px;
+}
+
+/* Active link styling */
+.mat-list-item.active {
+  background-color: #1e88e5;
+}
+
+/* Main content area */
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto;
+}
+
+/* Header Styling */
+h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Style for the content sections */
+.app-admin-dashboard-widget {
+  margin-top: 30px;
+  margin-left: 90%;
+}
+.app-quiz-table {
+  margin-top: 30px;
+}
+
+.app-student-list {
+  margin-top: 30px;
+}
+
+/* Custom scrollbar */
+.mat-sidenav-content {
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.mat-sidenav-content::-webkit-scrollbar {
+  width: 8px;
+}
+.mat-sidenav-content::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+.mat-sidenav-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}

@@ -41,7 +41,6 @@ import { UserService } from '../services/user.service';
             </mat-card>
           </div>
         </mat-tab>
-
         <!-- Completed Quizzes Tab -->
         <mat-tab label="Completed">
           <div
@@ -92,14 +91,13 @@ export class StudentDashboardComponent implements OnInit {
   private dialog = inject(MatDialog);
   private router = inject(Router);
   private userService = inject(UserService);
-
   activeQuizzes: any[] = [];
   completedQuizzes: any[] = [];
-
   ngOnInit() {
     const userId = this.userService.getUserId();
     if (userId) {
       this.fetchActiveQuizzes(userId);
+      this.fetchCompletedQuizzes(userId);
     }
   }
 
@@ -120,19 +118,44 @@ export class StudentDashboardComponent implements OnInit {
       });
   }
 
+  fetchCompletedQuizzes(userId: string) {
+    // const userId = localStorage.getItem('userId');
+    this.http
+      .get<any[]>(`http://localhost:3000/results?userId=${userId}`)
+      .subscribe((results) => {
+        if (!results || results.length === 0) return;
+
+        const quizFetches = results.map((result) =>
+          this.http
+            .get<any>(`http://localhost:3000/quizzes/${result.quizId}`)
+            .toPromise()
+        );
+
+        Promise.all(quizFetches).then((quizzes) => {
+          this.completedQuizzes = results.map((res, i) => ({
+            ...res,
+            quizTitle: quizzes[i]?.title ?? 'Untitled Quiz',
+            total: quizzes[i]?.questions.length ?? 0,
+            submittedAt: res.submittedAt || new Date().toISOString(),
+          }));
+        });
+      });
+  }
+
   startQuiz(quizId: string | number) {
+    // First, set the quiz status to "In Progress" when the student starts
     this.http
       .get<any[]>('http://localhost:3000/quizzes')
       .subscribe((quizzes) => {
         const quizToUpdate = quizzes.find((q) => q.id === quizId);
         if (quizToUpdate) {
-          quizToUpdate.status = 'In Progress';
+          quizToUpdate.status = 'In Progress'; // Update the status to "In Progress"
 
           this.http
             .put(`http://localhost:3000/quizzes/${quizId}`, quizToUpdate)
             .subscribe(() => {
               console.log('Quiz status updated to In Progress');
-              this.router.navigate(['/student/quiz', quizId]);
+              this.router.navigate(['/student/quiz', quizId]); // Navigate to the quiz
             });
         }
       });
@@ -145,4 +168,3 @@ export class StudentDashboardComponent implements OnInit {
     });
   }
 }
-// // This component is the main dashboard for students. It displays active and completed quizzes in a tabbed interface. Students can start active quizzes or view results of completed quizzes. The component fetches quiz data from a mock API and uses Angular Material for styling and layout.

@@ -1,5 +1,76 @@
 {
-  "users": [],
-  "quizzes": [],
-  "results": []
+  "users": [
+    {
+      "id": "b8d3",
+      "name": "arya",
+      "email": "arya@gmail.com",
+      "password": "arya",
+      "role": "admin"
+    },
+    {
+      "id": "0f9b",
+      "name": "neha",
+      "email": "neha@gmail.com",
+      "password": "neha",
+      "role": "student"
+    }
+  ],
+  "quizzes": [
+    {
+      "id": "fb62",
+      "title": "Angular Basics",
+      "timer": 10,
+      "questions": [
+        {
+          "text": "Is Angular a component-based framework?",
+          "answer": "Yes"
+        },
+        {
+          "text": " Does Angular support two-way data binding out of the box?",
+          "answer": "Yes"
+        },
+        {
+          "text": "Is ngFor used for conditional rendering in Angular?",
+          "answer": "No"
+        },
+        {
+          "text": "Is HttpClient a built-in Angular service for making API calls?",
+          "answer": "Yes"
+        },
+        {
+          "text": "Does Angular CLI automatically create a module when you generate a component?",
+          "answer": "No"
+        }
+      ],
+      "status": "In Progress"
+    }
+  ],
+  "results": [
+    {
+      "id": "4a8d",
+      "quizId": "fb62",
+      "quizTitle": "Angular Basics",
+      "studentName": "neha",
+      "score": 1,
+      "status": "Failed",
+      "timestamp": "2025-04-25T02:53:51.063Z",
+      "responses": [
+        {
+          "response": "Yes"
+        },
+        {
+          "response": "No"
+        },
+        {
+          "response": "Yes"
+        },
+        {
+          "response": "No"
+        },
+        {
+          "response": "Yes"
+        }
+      ]
+    }
+  ]
 }

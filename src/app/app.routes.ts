@@ -19,19 +19,25 @@ export const routes: Routes = [
   },
 
   // //   { path: 'student', component: StudentDashboardComponent },
-  //   {
-  //     path: 'student',
-  //     loadComponent: () => import('./student/student-dashboard.component').then(m => m.StudentDashboardComponent),
-  //     canActivate: [AuthGuard],
-  //     data: { roles: ['student'] }
-  //   },
+  {
+    path: 'student',
+    loadComponent: () =>
+      import('./student/student-dashboard.component').then(
+        (m) => m.StudentDashboardComponent
+      ),
+    canActivate: [AuthGuard],
+    data: { roles: ['student'] },
+  },
 
-  //   {
-  //     path: 'student/quiz/:id',
-  //     loadComponent: () => import('./student/student-quiz.component').then(m => m.StudentQuizComponent),
-  //     canActivate: [AuthGuard],
-  //     data: { roles: ['student'] }
-  //   },
+  {
+    path: 'student/quiz/:id',
+    loadComponent: () =>
+      import('./student/student-quiz.component').then(
+        (m) => m.StudentQuizComponent
+      ),
+    canActivate: [AuthGuard],
+    data: { roles: ['student'] },
+  },
   {
     path: '**',
     redirectTo: '/login', // Default to login for undefined routes
