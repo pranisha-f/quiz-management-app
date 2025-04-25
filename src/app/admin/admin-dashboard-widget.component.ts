@@ -70,7 +70,6 @@ export class AdminDashboardWidgetComponent implements OnInit {
 
         // Fetch student data
         this.authService.getUsers().subscribe((users) => {
-          // Filter users by the role 'student'
           this.students = users.filter((user) => user.role === 'student');
           this.totalStudents = this.students.length;
         });

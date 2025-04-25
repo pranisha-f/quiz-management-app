@@ -8,6 +8,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { RouterModule, Router } from '@angular/router';
 import { ResultModalComponent } from './result-modal.component';
 import { UserService } from '../services/user.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -19,9 +22,22 @@ import { UserService } from '../services/user.service';
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
   ],
   template: `
     <div class="dashboard-container">
+      <mat-sidenav #sidenav mode="side" opened class="sidebar">
+        <mat-nav-list>
+          <!-- Logout Link -->
+          <a mat-list-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+          </a>
+        </mat-nav-list>
+      </mat-sidenav>
+      <h1>Student Dashboard</h1>
+
       <mat-tab-group>
         <!-- Active Quizzes Tab -->
         <mat-tab label="Active">
@@ -93,6 +109,7 @@ export class StudentDashboardComponent implements OnInit {
   private userService = inject(UserService);
   activeQuizzes: any[] = [];
   completedQuizzes: any[] = [];
+
   ngOnInit() {
     const userId = this.userService.getUserId();
     if (userId) {
@@ -101,8 +118,12 @@ export class StudentDashboardComponent implements OnInit {
     }
   }
 
+  logout() {
+    this.userService.clearUserData;
+    this.router.navigate(['/login']);
+  }
+
   fetchActiveQuizzes(userId: string) {
-    // const userId = localStorage.getItem('userId');
     this.http
       .get<any[]>('http://localhost:3000/results?userId=' + userId)
       .subscribe((results) => {
@@ -119,7 +140,6 @@ export class StudentDashboardComponent implements OnInit {
   }
 
   fetchCompletedQuizzes(userId: string) {
-    // const userId = localStorage.getItem('userId');
     this.http
       .get<any[]>(`http://localhost:3000/results?userId=${userId}`)
       .subscribe((results) => {
@@ -143,7 +163,6 @@ export class StudentDashboardComponent implements OnInit {
   }
 
   startQuiz(quizId: string | number) {
-    // First, set the quiz status to "In Progress" when the student starts
     this.http
       .get<any[]>('http://localhost:3000/quizzes')
       .subscribe((quizzes) => {
