@@ -4,7 +4,7 @@
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(32, 58, 92, 0.9);
   background-position: center;
 }
 
@@ -17,6 +17,8 @@ h2 {
 .signup-form {
   display: flex;
   flex-direction: column;
+  background-color: rgba(46, 60, 83, 0.9);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .mat-form-field {
@@ -26,6 +28,7 @@ h2 {
 .submit-btn {
   margin-top: 20px;
   align-self: center;
+  background-color: rgba(84, 112, 152, 0.9);
 }
 
 .login-link {
@@ -34,9 +37,9 @@ h2 {
 }
 
 .login-link a {
-  text-decoration: none;
   font-weight: bold;
-  color: #3f51b5;
+  color: #007bff;
+  text-decoration: none;
 }
 
 .login-link a:hover {
